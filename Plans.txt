@@ -1,0 +1,29 @@
+BST class (NICK)
+	-constructor
+		-takes BST
+		-takes no params
+	- find(String)
+	- insert(String)
+	- delete(String)
+	- toString // Pre-order walk
+	- rotation(Node) (JOHN)
+
+AVL class (JOHN)
+	-takes BST
+		- walk
+		- calc heights
+		- balance
+
+Splay class (JAVIER)
+	
+
+Node class implements Comparable (NICK)
+	- String key (comparableTo())
+	- boolean[5] {user, f1, f2, f3, f4}
+	- Node left, right, parent
+	- int height
+	- compareTo(Node)
+
+Driver (JAVIER)
+	- load files
+	- user inputs
