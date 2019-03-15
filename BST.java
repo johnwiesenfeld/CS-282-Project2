@@ -7,15 +7,16 @@ public class BST
 
 	public void Insert(String Key, boolean[] InFile)
 	{
-		Node insertion = root;
-		while (insertion != null)
+		Node parent = getNode(Key), insertion = new Node(Key, InFile, parent);
+		if (root == null)
 		{
-			int cmp = key.compareTo(insertion.GetKey());
-			if (cmp == 0)
+			root = insertion;
 		}
-
-
-		if (root == null) { root = new Node(Key, InFile); }
+		else
+		{
+			insertion.compareTo(parent) > 0 ?
+				parent.SetRight(insertion) : parent.SetLeft(insertion);
+		}
 	}
 
 	public void Delete(String Key)
@@ -35,7 +36,17 @@ public class BST
 	// return node with matching key, or the parent if key not found
 	protected final Node getNode(String Key)
 	{
-		
+		Node key = new Node(key, boolean[5]);
+		Node temp = root, tempParent = null;
+		while (temp != null)
+		{
+				tempParent = temp;
+				int cmp = key.compareTo(temp);
+				if (cmp == 0) { return temp; }
+				else if (cmp > 0) { temp = temp.GetRight(); }
+				else { temp = temp.GetLeft(); }
+		}
+		return tempParent;
 	}
 
 	public final String toString()
