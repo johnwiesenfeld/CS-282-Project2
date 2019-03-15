@@ -75,6 +75,7 @@ public class Node implements Comparable<Node>
 		if (InFiles.length != fileCount) { return; }
 		inFile = InFiles;
 	}
+	public String GetKey() { return key; }
 
 	public void SetHeight(int Height) { height = Height; }
 	public int GetHeight() { return height; }
