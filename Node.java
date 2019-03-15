@@ -6,6 +6,15 @@ public class Node implements Comparable<Node>
 	private int height;
 	private static final int fileCount = 5;
 
+	public Node(String Key)
+	{
+		key = Key;
+		inFile = new boolean[fileCount];
+		left = null;
+		right = null;
+		parent = null;
+		height = 0;
+	}
 	public Node(String Key, boolean[] InFile)
 	{
 		key = key;

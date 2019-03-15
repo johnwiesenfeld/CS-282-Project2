@@ -22,10 +22,25 @@ public class BST
 		}
 	}
 
-	public void Delete(String Key)
+	public void Delete(String Key, int FileNumber)
 	{
-		Node temp = getNode(Key);
-		if (temp == null) { return; }
+		Node toDelete = getNode(Key);
+		if (toDelete == null || Key.compareTo(toDelete.GetKey) != 0) { return; }
+
+		// case 1, no children
+		if (toDelete.GetRight() == null && toDelete.GetLeft() == null)
+		{
+			
+		}
+		// case 3, two children
+		else if ()
+		{
+
+		}
+		// case 2, one child
+
+		// need to fix root somewhere
+		
 	}
 
 	public boolean Find(String Key, int FileNumber)
@@ -50,6 +65,15 @@ public class BST
 				else { temp = temp.GetLeft(); }
 		}
 		return tempParent;
+	}
+	protected final Node getPredecessor(Node node)
+	{
+			node = node.GetLeft();
+			while (node.GetRight() != null)
+			{
+					node = node.GetRight();
+			}
+			return node;
 	}
 
 	public final String toString()
