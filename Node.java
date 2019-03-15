@@ -65,6 +65,7 @@ public class Node implements Comparable<Node>
 		if (fileNumber < 0 || fileNumber > fileCount) { return false; }
 		return inFile[fileNumber];
 	}
+	public boolean[] GetFiles() { return inFile; }
 	public void SetFiles(int fileNumber, boolean isPresent)
 	{
 		if (fileNumber < 0 || fileNumber > fileCount) { return; }

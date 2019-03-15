@@ -12,10 +12,13 @@ public class BST
 		{
 			root = insertion;
 		}
-		else
+		else if (insertion.compareTo(parent) > 0)
 		{
-			insertion.compareTo(parent) > 0 ?
-				parent.SetRight(insertion) : parent.SetLeft(insertion);
+			parent.SetRight(insertion);
+		}
+		else if (insertion.compareTo(parent) < 0)
+		{
+			parent.SetLeft(insertion);
 		}
 	}
 
@@ -25,18 +28,18 @@ public class BST
 		if (temp == null) { return; }
 	}
 
-	public boolean Find(Sting Key, int File)
+	public boolean Find(String Key, int FileNumber)
 	{
-
+		return getNode(Key).isInFile(FileNumber);
 	}
 	public boolean[] FindAll(String Key)
 	{
-		
+		return getNode(Key).GetFiles();
 	}
 	// return node with matching key, or the parent if key not found
 	protected final Node getNode(String Key)
 	{
-		Node key = new Node(key, boolean[5]);
+		Node key = new Node(Key, new boolean[5]);
 		Node temp = root, tempParent = null;
 		while (temp != null)
 		{
@@ -51,7 +54,7 @@ public class BST
 
 	public final String toString()
 	{
-
+		return "";
 	}
 
 	// protected rotation function(s)
