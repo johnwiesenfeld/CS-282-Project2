@@ -80,11 +80,13 @@ public class Node implements Comparable<Node>
 		if (fileNumber < 0 || fileNumber > fileCount) { return; }
 		inFile[fileNumber] = isPresent;
 	}
-	public void setFiles(boolean[] InFiles)
+	public void SetFiles(boolean[] InFiles)
 	{
 		if (InFiles.length != fileCount) { return; }
 		inFile = InFiles;
 	}
+
+	public void SetKey(String Key) { key = Key; }
 	public String GetKey() { return key; }
 
 	public void SetHeight(int Height) { height = Height; }

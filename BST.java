@@ -27,20 +27,52 @@ public class BST
 		Node toDelete = getNode(Key);
 		if (toDelete == null) { return; }
 
-		// case 1, no children
-		if (toDelete.GetRight() == null && toDelete.GetLeft() == null)
+		// two children case
+		if (toDelete.GetRight() != null && toDelete.GetLeft() != null)
 		{
+			Node pred = getPredecessor(toDelete);
+			Node temp = new Node(pred.GetKey(), pred.GetFiles());
 			
+			pred.SetKey(toDelete.GetKey());
+			pred.SetFiles(toDelete.GetFiles());
+			
+			toDelete.SetKey(temp.GetKey());
+			toDelete.SetFiles(temp.GetFiles());
+
+			toDelete = pred;
 		}
-		// case 3, two children
-		else if ()
+
+		// grab possible subTree
+		Node subTree = toDelete.GetLeft();
+		if (subTree == null) { subTree = toDelete.GetRight(); }
+
+		// deletion
+		if (toDelete == root)
 		{
-
+			root = subTree;
+			if (root != null) { root.SetParent(null); }
 		}
-		// case 2, one child
+		else
+		{
+			Node parent = toDelete.GetParent();
+			if (parent.GetLeft().compareTo(toDelete) == 0)
+			{
+				parent.SetLeft(subTree);
+			}
+			else
+			{
+				parent.SetRight(subTree);
+			}
 
-		// need to fix root somewhere
-		
+			if (subTree != null)
+			{
+				subTree.SetParent(parent);
+			}
+		}
+
+		toDelete.SetParent(null);
+		toDelete.SetRight(null);
+		toDelete.SetLeft(null);
 	}
 
 	public boolean Find(String Key, int FileNumber)
@@ -50,7 +82,7 @@ public class BST
 	}
 	public boolean[] FindAll(String Key)
 	{
-		Node node = getNode(Key)
+		Node node = getNode(Key);
 		return node == null ? null : node.GetFiles();
 	}
 
