@@ -7,8 +7,8 @@ public class BST
 
 	public void Insert(String Key, boolean[] InFile)
 	{
-		Node parent = getNode(Key), insertion = new Node(Key, InFile, parent);
-		if (root == null)
+		Node parent = getLeaf(Key), insertion = new Node(Key, InFile, parent);
+		if (isEmpty())
 		{
 			root = insertion;
 		}
@@ -25,7 +25,7 @@ public class BST
 	public void Delete(String Key, int FileNumber)
 	{
 		Node toDelete = getNode(Key);
-		if (toDelete == null || Key.compareTo(toDelete.GetKey) != 0) { return; }
+		if (toDelete == null) { return; }
 
 		// case 1, no children
 		if (toDelete.GetRight() == null && toDelete.GetLeft() == null)
@@ -45,16 +45,26 @@ public class BST
 
 	public boolean Find(String Key, int FileNumber)
 	{
-		return getNode(Key).isInFile(FileNumber);
+		Node node = getNode(Key);
+		return node == null ? false : node.isInFile(FileNumber);
 	}
 	public boolean[] FindAll(String Key)
 	{
-		return getNode(Key).GetFiles();
+		Node node = getNode(Key)
+		return node == null ? null : node.GetFiles();
 	}
-	// return node with matching key, or the parent if key not found
+
+	// return node with matching key, null on no match
 	protected final Node getNode(String Key)
 	{
-		Node key = new Node(Key, new boolean[5]);
+		Node candidate = getLeaf(Key), key = new Node(Key);
+		return candidate.compareTo(key) == 0 ? candidate : null;
+	}
+
+	// return node with matching key, or the parent if key not found
+	protected final Node getLeaf(String Key)
+	{
+		Node key = new Node(Key);
 		Node temp = root, tempParent = null;
 		while (temp != null)
 		{
@@ -79,6 +89,11 @@ public class BST
 	public final String toString()
 	{
 		return "";
+	}
+
+	public final boolean isEmpty()
+	{
+		return root == null;
 	}
 
 	// protected rotation function(s)
