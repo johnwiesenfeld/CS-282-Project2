@@ -9,10 +9,15 @@ BST class (NICK)
 	- rotation(Node) (JOHN)
 
 AVL class (JOHN)
-	-takes BST
+	-Constructor takes BST
 		- walk
 		- calc heights
 		- balance
+	- find(String)
+	- insert(String)
+	- delete(String)
+	- toString // Pre-order walk
+	- use rotate from BST?
 
 Splay class (JAVIER)
 	

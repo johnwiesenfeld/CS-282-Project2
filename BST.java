@@ -129,4 +129,50 @@ public class BST
 	}
 
 	// protected rotation function(s)
+	protected final void leftRotate(Node node)
+	{
+		Node x = node.GetRight();
+		Node y = x.GetLeft();
+
+		x.SetLeft(node);
+		node.SetRight(y);
+		y.SetParent(node);
+
+		if (node.GetParent() == null) {
+			root = x;
+		} else {
+			if(node.GetParent().GetLeft() == node)
+			{
+				node.GetParent().SetLeft(x);
+			} else {
+				node.GetParent().SetRight(x);
+			}
+		}
+
+		x.SetParent(node.GetParent());
+		node.SetParent(x);
+	}
+
+	protected final void rightRotate(Node node)
+	{
+		Node x = node.GetLeft();
+		Node y = x.GetRight();
+
+		x.SetRight(node);
+		node.SetLeft(y);
+		y.SetParent(node);
+
+		if (node.GetParent() == null) {
+			root = x;
+		} else {
+			if(node.GetParent().GetLeft() == node)
+			{
+				node.GetParent().SetLeft(x);
+			} else {
+				node.GetParent().SetRight(x);
+			}
+		}
+		x.SetParent(node.GetParent());
+		node.SetParent(x);
+	}
 }
