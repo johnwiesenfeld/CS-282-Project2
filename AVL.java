@@ -4,11 +4,11 @@ public class AVL extends BST
 {
 	public AVL() { root = null; }
 
-	public AVL(BST other)
+	public AVL(Node Root)
 	{
 		//temporarily store nodes sorted in Vector via inOrder walk of BST
 		Vector<Node> tempStorage = new Vector<Node>();
-		StoreNodes(other.root, tempStorage);
+		StoreNodes(Root, tempStorage);
 
 		//build balanced tree from Vector, by recursively inserting mid-point of vector via pre-order
 		BuildBalancedTree(0, tempStorage.size()-1, tempStorage);
