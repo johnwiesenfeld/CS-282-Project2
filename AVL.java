@@ -8,20 +8,16 @@ public class AVL extends BST
 	{
 		//temporarily store nodes sorted in Vector via inOrder walk of BST
 		Vector<Node> tempStorage = new Vector<Node>();
-		StoreNodes(other, tempStorage);
+		StoreNodes(other.root, tempStorage);
 
 		//build balanced tree from Vector, by recursively inserting mid-point of vector via pre-order
 		BuildBalancedTree(0, tempStorage.size()-1, tempStorage);
 
 		//Update heights in each Node of new AVL tree
-		UpdateHeights(root);
+		UpdateHeights(this.root);
 	}
 
-//helper methods for contstructing AVL from any BST
-	private void StoreNodes(BST other, Vector<Node> tempStorage)
-	{
-		StoreNodes(other.root, tempStorage);
-	}
+//helper method for contstructing AVL from any BST
 	private void StoreNodes(Node node, Vector<Node> tempStorage)
 	{
 		if(node == null)
@@ -56,6 +52,8 @@ public class AVL extends BST
 
 		//Do AVL Stuff
 		Node temp = getNode(Key);
+		UpdateHeights(temp);
+
 		while(temp != null)
 		{
 			if(BalanceFactor(temp) < -1)
@@ -77,9 +75,25 @@ public class AVL extends BST
 //AVL deletion
 	public void Delete(String Key, int FileNumber)
 	{
+		Node temp = getNode(Key).GetParent();
 		super.Delete(Key, FileNumber);
-		//???? Do AVL Stuff? or are we doing lazy deletions?
-		//...
+		if(!isEmpty()) {UpdateHeights(temp);}
+
+		while(temp != null)
+		{
+			if(BalanceFactor(temp) < -1)
+			{
+				//...
+				UpdateHeights(temp);
+				break;
+			} else if(BalanceFactor(temp) > 1)
+			{
+				//...
+				UpdateHeights(temp);
+				break;
+			}
+			temp = temp.GetParent();
+		}
 	}
 
 //BalanceFactor Calculation
@@ -100,7 +114,7 @@ public class AVL extends BST
 		return heightLeft > heightRight ? heightLeft + 1 : heightRight + 1;
 	}
 
-//Update all node heights in tree/subtree with starting at 'node'
+//Update all node heights in tree/subtree starting at 'node'
 	private void UpdateHeights(Node node)
 	{
 		if(node == null)
