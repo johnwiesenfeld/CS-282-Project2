@@ -3,7 +3,7 @@ public class Node implements Comparable<Node>
 	private String key;
 	private boolean[] inFile;
 	private Node left, right, parent;
-	private int height;
+	private int balanceFactor;
 	private static final int fileCount = 5;
 
 	public Node(String Key)
@@ -13,7 +13,7 @@ public class Node implements Comparable<Node>
 		left = null;
 		right = null;
 		parent = null;
-		height = 0;
+		balanceFactor = 0;
 	}
 	public Node(String Key, boolean[] InFile)
 	{
@@ -22,7 +22,7 @@ public class Node implements Comparable<Node>
 		left = null;
 		right = null;
 		parent = null;
-		height = 0;
+		balanceFactor = 0;
 	}
 	public Node(String Key, boolean[] InFile, Node Parent)
 	{
@@ -31,7 +31,7 @@ public class Node implements Comparable<Node>
 		left = null;
 		right = null;
 		parent = Parent;
-		height = 0;
+		balanceFactor = 0;
 	}
 	public Node(String Key, boolean[] InFile, Node Parent, Node Left, Node Right)
 	{
@@ -40,16 +40,16 @@ public class Node implements Comparable<Node>
 		left = Left;
 		right = Right;
 		parent = Parent;
-		height = 0;
+		balanceFactor = 0;
 	}
-	public Node(String Key, boolean[] InFile, Node Parent, Node Left, Node Right, int Height)
+	public Node(String Key, boolean[] InFile, Node Parent, Node Left, Node Right, int BalanceFactor)
 	{
 		key = key;
 		inFile = InFile;
 		left = Left;
 		right = Right;
 		parent = Parent;
-		height = Height;
+		balanceFactor = BalanceFactor;
 	}
 
 	public int compareTo(Node other)
@@ -89,8 +89,8 @@ public class Node implements Comparable<Node>
 	public void SetKey(String Key) { key = Key; }
 	public String GetKey() { return key; }
 
-	public void SetHeight(int Height) { height = Height; }
-	public int GetHeight() { return height; }
+	public void SetBalanceFactor(int BalanceFactor) { balanceFactor = BalanceFactor; }
+	public int GetBalanceFactor() { return balanceFactor; }
 
 	public void SetLeft(Node Left) { left = Left; }
 	public void SetRight(Node Right) { right = Right; }

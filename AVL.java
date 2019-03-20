@@ -1,48 +1,67 @@
+import java.util.Vector;
+
 public class AVL extends BST
 {
 	public AVL() { root = null; }
 
 	public AVL(BST other)
 	{
-		root = other.root;
-		FixAVL();
+		Vector<Node> tempStorage = new Vector<Node>();
+
+		//temporarily store nodes sorted in Vector via inOrder walk of BST
+		StoreNodes(other, tempStorage);
+
+		//build balanced tree from Vector, by recursively inserting mid-point of vector via pre-order
+		BuildBalancedTree(0, tempStorage.size()-1, tempStorage);
 	}
 
-	public void Insert(String Key, boolean[] InFile)
+//helper methods for contstructing AVL from any BST
+	private void StoreNodes(BST other, Vector<Node> tempStorage)
 	{
-		super.Insert(Key, InFile);
-		FixAVL();
+		StoreNodes(other.root, tempStorage);
+	}
+	private void StoreNodes(Node node, Vector<Node> tempStorage)
+	{
+		if(node == null)
+		{
+			return;
+		}
+		StoreNodes(node.GetLeft(), tempStorage);
+		tempStorage.add(node);
+		StoreNodes(node.GetRight(), tempStorage);
 	}
 
-	public void Delete(String Key, int FileNumber)
+	private void BuildBalancedTree(int beginning, int end, Vector<Node> tempStorage)
 	{
-		super.Delete(Key, FileNumber);
-		FixAVL();
-	}
-
-	//fix tree to regain AVL status
-	private void FixAVL()
-	{
-		CalclulateHeights();
-		//write operation to rotate things appropriately
-	}
-
-	//Pre-order recursive walk to calculate node heights
-	private void CalclulateHeights()
-	{
-		CalculateHeights(root);
-	}
-	private void CalculateHeights(Node currNode)
-	{
-		if(currNode == null)
+		if(beginning > end)
 		{
 			return;
 		}
 
-		//Write height calculation peration here
+		int middle = (beginning + end)/2;
+		Node temp = tempStorage.get(middle);
+		
+		super.Insert(temp.GetKey(), temp.GetFiles());
+		BuildBalancedTree(0, middle - 1, tempStorage);
+		BuildBalancedTree(middle + 1, end, tempStorage);
+	}
 
-		CalculateHeights(currNode.GetLeft());
-		CalculateHeights(currNode.GetRight());
+//AVL insertion
+	public void Insert(String Key, boolean[] InFile)
+	{
+		super.Insert(Key, InFile);
+		//Do AVL Stuff
+		Node temp = getNode(Key);
+		//...
+	}
+
+
+//AVL deletion
+	public void Delete(String Key, int FileNumber)
+	{
+		super.Delete(Key, FileNumber);
+		//???? Do AVL Stuff?
+		//...
 	}
 
 }
