@@ -3,248 +3,180 @@ import java.util.Scanner;
 
 public class Driver{
 	
+	private String typeOfTree;
 	
 	public static void main(String[] args)
 	{
-		GroupData data = load("data.txt");
+		BST tree = new BST();
+		tree = load("file1.txt", tree);
+		//tree = load("file2.txt", tree);
+		//tree = load("file3.txt", tree);
+		//tree = load("file4.txt", tree);
 		Scanner in = new Scanner(System.in);
-
 		boolean exit = false;
 		while (!exit)
 		{
-			switch(commandline(data, in))
+			switch(commandline(tree, in))
 			{
 				case "quit":		exit = true;		break;
-				case "add":		    add(data, in);		break;
-				case "drop":		drop(data, in);		break;
-				case "find":		find(data, in);		break;
-				case "size":		size(data, in);		break;
-				case "members":		members(data, in);	break;
-				case "largest":		largest(data);		break;
-				case "smallest":	smallest(data); 	break;
-				case "cover":		cover(data);		break;
-				case "print":		print(data);		break;
+				case "insert":		insert(tree, in);	break; // add =insert
+				case "delete":		delete(tree, in);	break; // drop =delete
+				case "find":		find(tree, in);		break;
+				case "select":		select(tree, in);	break;
+				case "print":		print(tree);		break;
 				default:	    	help();		    	break;
 			}
 		}
+		
 		in.close();
 	}
 
-	public static void add(GroupData data, Scanner in) {
-
-		String name = "";
-		long id;
-		boolean[] clubArr;
-
-		//collect information
-		System.out.println("Enter student name: ");
+	public static void insert(BST Tree, Scanner in)
+	{
+		System.out.println("Which file? ");
 		System.out.print('>');
-		name = " " + in.nextLine();
-		System.out.println("Enter student ID: ");
+		int file = in.nextInt();
+		System.out.println("Word? ");
 		System.out.print('>');
-		try {
-			id = in.nextLong();
-			in.nextLine();
-		} catch (Exception ex) {
-			in.nextLine();
-			System.out.println(ex);
-			return;
-		}
-		System.out.println("Enter groups student is in: ");
+		String word = in.nextLine();
+		
+		System.out.println("Insertion done! ");
+	}
+	
+	public static void delete(BST Tree, Scanner in)
+	{
+		System.out.println("Word? ");
 		System.out.print('>');
-		String clubs = " " + in.nextLine();
-		clubArr = data.convert(clubs);
-		if(clubArr == null){
-			System.out.println("ERROR: Clubs affiliations must entered as string of only T's and F's, no spaces.\n" +
-					"For Example: TFFT");
-			return;
-		}
-
-		//create student and insert into GroupData
-		try{
-			Student stud = new Student(id, name, clubArr);
-			data.insert(stud);
-		} catch (Exception ex)
-		{
-			System.out.println(ex);
-			return;
-		}
-	}
-
-	public static void drop(GroupData data, Scanner in)
-	{
-		System.out.println("Enter student ID: ");
+		String word = in.nextLine();
+		System.out.println("Which file? ");
 		System.out.print('>');
-		long id;
-		try {
-			id = in.nextLong();
-			in.nextLine();
-		} catch (Exception ex) {
-			in.nextLine();
-			System.out.println(ex);
-			return;
-		}
-
-		Student student = new Student(id);
-		student = data.find(student);
-
-		if(student != null)
-		{
-			System.out.println("Removing: " + student.toString());
-			data.delete(student);
-		} else {
-			System.out.println("ERROR: Student ID does not exist");
-		}
+		int file = in.nextInt();
+		
+		System.out.println("Deletion done! ");
 	}
-
-	public static void find(GroupData data, Scanner in)
+	
+	public static void find(BST Tree, Scanner in)
 	{
-		System.out.println("Enter student ID: ");
+		System.out.println("Word? ");
 		System.out.print('>');
-		long id = in.nextLong();
-		in.nextLine();
-
-		Student student = new Student(id);
-		student = data.find(student);
-
-		if(student != null)
-		{
-			System.out.println(student.toString());
-		} else {
-			System.out.println("ERROR: Student ID does not exist.");
-		}
+		String word = in.nextLine();
+		
 	}
-
-	public static void size(GroupData data, Scanner in)
+	
+	public static void select(BST Tree, Scanner in)
 	{
-		System.out.println("Enter Group #: ");
+		System.out.println("Type of tree? ");
 		System.out.print('>');
-		int group = in.nextInt();
-		in.nextLine();
-		if(group > 0 && group <= data.numOfGroups())
-		{
-			System.out.println("Size of group " + group + ": " + data.numInGroup(group));
-		} else {
-			System.out.println("ERROR: Group does not exist");
-		}
+		String word = in.nextLine();
+		//typeOfTree.SetTree(word);
 	}
-
-	public static void members(GroupData data, Scanner in)
+	
+	public static void print(BST Tree)
 	{
-		System.out.println("Enter Group #: ");
+		System.out.println(Tree.toString());
+	}
+	
+	public void SetTree(String Tree) { typeOfTree = Tree; }
+	
+	//menu to call all operations from command line
+	public static String commandline(BST tree, Scanner in)
+	{
+		System.out.println("\nPlease enter a command: insert, delete, " +
+			"find, select, print, and quit.");
 		System.out.print('>');
-		int groupnum = in.nextInt();
-		in.nextLine();
-
-		if (groupnum > 0 && groupnum <= data.numOfGroups()) {
-			System.out.print(data.members(groupnum));
-		} else {
-			System.out.println("ERROR: Group does not exist.");
-		}
+		String line = in.nextLine();
+		return line;
 	}
-
-	public static void largest(GroupData data)
-	{
-		if(data.numOfGroups() != 0)
-		{
-			System.out.println("" +data.sizeLargest());
-		}
-		else
-		{
-			System.out.println("ERROR: Groups do not exist.");
-		}
-	}
-
-	public static void smallest(GroupData data)
-	{
-		if(data.numOfGroups() != 0)
-		{
-			System.out.println("" +data.sizeSmallest());
-		}
-		else
-		{
-			System.out.println("ERROR: Groups do not exist.");
-		}
-	}
-
-	public static void cover(GroupData data)
-	{
-		System.out.println("Minimum # of groups to cover all students: " + data.numToReachAll());
-	}
-
-	public static void print(GroupData data)
-	{
-		System.out.println(data.toString());
-	}
-
+	
 	public static void help()
 	{
 		System.out.println("\nYour options are:" +
-			"\nadd (adds a student)" +
-			"\ndrop (drops a student)" +
-			"\nfind (outputs a student)" +
-			"\nsize (outputs the size of a group)" +
-			"\nmembers (outputs the members of a group)" +
-			"\nlargest (outputs the largest size of any group)" +
-			"\nsmallest (outputs the smallest size of any group)" +
-			"\ncover (outputs the minimum number of groups which" +
-			"cover all students)" +
-			"\nprint (outputs complete list of students)" +
+			"\nselect (select type of tree)" +
+			"\nfind " +
+			"\ninsert " +
+			"\ndelete " +
+			"\nprint " +
 			"\nquit (ends the program)\n");
 	}
 
-	//menu to call all operations from command line
-	public static String commandline(GroupData data, Scanner in)
-	{
-		System.out.println("\nPlease enter a command: add, drop, " +
-			"find, size, members, largest, smallest, \ncover, help, print and quit.");
-		System.out.print('>');
-		String line = in.nextLine();
-		String[] t = line.split(" "); // split line
-		String cmd = t[0];
-		return cmd;
-	}
-
-	public static GroupData load(String fileName)
+	public static BST load(String FileName, BST Tree)
 	{
 		try
 		{
-			GroupData data = new GroupData();
-			FileReader fr = new FileReader(fileName);
+			BST tree = Tree;
+			boolean[] inFile = new boolean[5];
+			FileReader fr = new FileReader(FileName);
 			BufferedReader br = new BufferedReader(fr);
 			String line;
-			int i = 0;
-			if(fileName.equals("data.txt"))
+			if(FileName.equals("file1.txt"))
 			{
+				inFile[1]= true;
 				while((line = br.readLine()) != null)
 				{
-					String[] items = line.split(",");
-					long id = Integer.parseInt(items[0]);
-					String name = items[1];
-					String clubs = items[2];
-					boolean[] arrB = data.convert(clubs);
-					if(arrB == null)
-					{
-						System.out.println("ERROR: Club input should only be T and F characters.");
-						System.exit(0);
-					}
-					Student stud = new Student(id, name, arrB);
 					try {
-						data.insert(stud);
+						System.out.println(line);
+						//tree.Insert(line, inFile); // fatal error HELP!!!
 					} catch (IllegalArgumentException ex) {
 						System.out.println(ex);
 						System.out.println("ERROR: Exiting program, please edit input file.");
 						System.exit(0);
 					}
-					i++;
 				}
-				System.out.println(data.toString());
+				//System.out.println(tree.toString());
+			}
+			else if(FileName.equals("file2.txt"))
+			{
+				inFile[2]= true;
+				while((line = br.readLine()) != null)
+				{
+					try {
+						System.out.println(line);
+						//tree.Insert(line, inFile); // fatal error HELP!!!
+					} catch (IllegalArgumentException ex) {
+						System.out.println(ex);
+						System.out.println("ERROR: Exiting program, please edit input file.");
+						System.exit(0);
+					}
+				}
+				//System.out.println(tree.toString());
+			}
+			else if(FileName.equals("file3.txt"))
+			{
+				inFile[3]= true;
+				while((line = br.readLine()) != null)
+				{
+					try {
+						System.out.println(line);
+						//tree.Insert(line, inFile); // fatal error HELP!!!
+					} catch (IllegalArgumentException ex) {
+						System.out.println(ex);
+						System.out.println("ERROR: Exiting program, please edit input file.");
+						System.exit(0);
+					}
+				}
+				//System.out.println(tree.toString());
+			}
+			else if(FileName.equals("file4.txt"))
+			{
+				inFile[4]= true;
+				while((line = br.readLine()) != null)
+				{
+					try {
+						System.out.println(line);
+						//tree.Insert(line, inFile); // fatal error HELP!!!
+					} catch (IllegalArgumentException ex) {
+						System.out.println(ex);
+						System.out.println("ERROR: Exiting program, please edit input file.");
+						System.exit(0);
+					}
+				}
+				//System.out.println(tree.toString());
 			}
 			else
 				System.out.println("\nERROR: Please save data.txt and run app again");
 			br.close();
 			fr.close();
-			return data;
+			return tree;
 		}
 		catch (Exception exception1)
 		{
