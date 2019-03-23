@@ -115,7 +115,7 @@ public class Driver{
 				{
 					try {
 						System.out.println(line);
-						//tree.Insert(line, inFile); // fatal error HELP!!!
+						tree.Insert(line, inFile); // fatal error HELP!!!
 					} catch (IllegalArgumentException ex) {
 						System.out.println(ex);
 						System.out.println("ERROR: Exiting program, please edit input file.");

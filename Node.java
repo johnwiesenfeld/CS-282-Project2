@@ -17,7 +17,7 @@ public class Node implements Comparable<Node>
 	}
 	public Node(String Key, boolean[] InFile)
 	{
-		key = key;
+		key = Key;
 		inFile = InFile;
 		left = null;
 		right = null;
@@ -26,7 +26,7 @@ public class Node implements Comparable<Node>
 	}
 	public Node(String Key, boolean[] InFile, Node Parent)
 	{
-		key = key;
+		key = Key;
 		inFile = InFile;
 		left = null;
 		right = null;
@@ -35,7 +35,7 @@ public class Node implements Comparable<Node>
 	}
 	public Node(String Key, boolean[] InFile, Node Parent, Node Left, Node Right)
 	{
-		key = key;
+		key = Key;
 		inFile = InFile;
 		left = Left;
 		right = Right;
@@ -44,7 +44,7 @@ public class Node implements Comparable<Node>
 	}
 	public Node(String Key, boolean[] InFile, Node Parent, Node Left, Node Right, int Height)
 	{
-		key = key;
+		key = Key;
 		inFile = InFile;
 		left = Left;
 		right = Right;
@@ -54,7 +54,9 @@ public class Node implements Comparable<Node>
 
 	public int compareTo(Node other)
 	{
-		return key.compareTo(other.key);
+		if (other == null) { return -1; }
+		else if (other.GetKey() == null) { return -1; }
+		else { return key.compareTo(other.GetKey()); }
 	}
 
 	public String toString()
