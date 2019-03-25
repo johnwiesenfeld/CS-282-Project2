@@ -20,7 +20,14 @@ AVL class (JOHN)
 	- use rotate from BST?
 
 Splay class (JAVIER)
-	
+	-Constructor
+		-
+		-
+	- find(String)
+	- insert(String)
+	- delete(String)
+	- toString // Pre-order walk
+	- use rotate from BST?
 
 Node class implements Comparable (NICK)
 	- String key (comparableTo())
