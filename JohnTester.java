@@ -2,7 +2,7 @@ public class JohnTester
 {
 	public static void main(String[] args)
 	{
-		AVL avl = new AVL();
+		BST bst = new BST();
 
 		String one = "Hello";
 		boolean[] onefile = {false, true, false, false, false};
@@ -25,38 +25,37 @@ public class JohnTester
 
 
 		System.out.println(0);
-		avl.Insert(one, onefile);
+		bst.Insert(one, onefile);
 
 		System.out.println(1);
-		avl.Insert(two, twofile);
+		bst.Insert(two, twofile);
 
 		System.out.println(2);
-		avl.Insert(three, threefile);
+		bst.Insert(three, threefile);
 
 		System.out.println(3);
-		avl.Insert(four, fourfile);
+		bst.Insert(four, fourfile);
 
 		System.out.println(4);
-		avl.Insert(five, fivefile);
+		bst.Insert(five, fivefile);
 
 		System.out.println(5);
-		avl.Insert(six, onefile);
+		bst.Insert(six, onefile);
 
 		System.out.println(6);
-		avl.Insert(seven, twofile);
+		bst.Insert(seven, twofile);
 
 		System.out.println(7);
-		avl.Insert(eight, threefile);
+		bst.Insert(eight, threefile);
 
 		System.out.println(8);
-		avl.Insert(nine, fourfile);
+		bst.Insert(nine, fourfile);
 
 		System.out.println(9);
-		avl.Insert(ten, fivefile);
+		bst.Insert(ten, fivefile);
 		System.out.println();
 
-		System.out.println(avl.getNode("Hello").GetHeight());
-
+		AVL avl = new AVL(bst);
 		avl.print();
 	}
 }

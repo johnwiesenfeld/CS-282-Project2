@@ -2,10 +2,32 @@ import java.util.Vector;
 
 public class AVL extends BST
 {
+	//Default constructor
 	public AVL() { root = null; }
 
-	public AVL(Node Root)
+	//Constructor for intaking BST
+	public AVL(BST bst)
 	{
+		Node Root = bst.root;
+
+		//temporarily store nodes sorted in Vector via inOrder walk of BST
+		Vector<Node> tempStorage = new Vector<Node>();
+		StoreNodes(Root, tempStorage);
+
+		//build balanced tree from Vector, by recursively inserting mid-point of vector via pre-order
+		BuildBalancedTree(0, tempStorage.size()-1, tempStorage);
+
+		//Update heights in each Node of new AVL tree
+		UpdateAllHeights(this.root);
+	}
+
+	//Constructor for intaking splay
+	//***UNCOMMENT WHEN SPLAY IS WORKING***
+/*	public AVL(Splay splay)
+	{
+		BST bst = (BST) splay;
+		Node Root = bst.root;
+
 		//temporarily store nodes sorted in Vector via inOrder walk of BST
 		Vector<Node> tempStorage = new Vector<Node>();
 		StoreNodes(Root, tempStorage);
@@ -16,7 +38,7 @@ public class AVL extends BST
 		//Update heights in each Node of new AVL tree
 		UpdateHeights(this.root);
 	}
-
+*/
 //helper method for contstructing AVL from any BST
 	private void StoreNodes(Node node, Vector<Node> tempStorage)
 	{
@@ -127,10 +149,11 @@ public class AVL extends BST
 		return leftHeight - rightHeight;
 	}
 
+//Calculate Height of a node recursively
 	private int Height(Node node)
 	{
 		if (node == null) {
-			return 0;
+			return -1;
 		}
 
 		int heightLeft = Height(node.GetLeft());
@@ -144,16 +167,25 @@ public class AVL extends BST
 		}
 	}
 
-//Update all node heights in tree/subtree starting at 'node'
+//Update all node heights in path up to root starting at 'node' [O(logN)]
 	private void UpdateHeights(Node node)
+	{
+		while(node != null)
+		{
+			node.SetHeight(Height(node));
+			node = node.GetParent();
+		}
+	}
+//Update node heights in entire tree [O(N)]
+	private void UpdateAllHeights(Node node)
 	{
 		if(node == null)
 		{
 			return;
 		}
 		node.SetHeight(Height(node));
-		UpdateHeights(node.GetLeft());
-		UpdateHeights(node.GetRight());
+		UpdateAllHeights(node.GetLeft());
+		UpdateAllHeights(node.GetRight());
 	}
 
 	//strictly for testing, remove before submission:

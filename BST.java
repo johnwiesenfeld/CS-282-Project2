@@ -136,7 +136,10 @@ public class BST
 
 		x.SetLeft(node);
 		node.SetRight(y);
-		y.SetParent(node);
+		if(y != null)
+		{
+			y.SetParent(node);
+		}
 
 		if (node.GetParent() == null) {
 			root = x;
@@ -160,7 +163,10 @@ public class BST
 
 		x.SetRight(node);
 		node.SetLeft(y);
-		y.SetParent(node);
+		if(y != null)
+		{
+			y.SetParent(node);
+		}
 
 		if (node.GetParent() == null) {
 			root = x;
