@@ -52,22 +52,36 @@ public class AVL extends BST
 
 		//Do AVL Stuff
 		Node temp = getNode(Key);
+		Node parent = temp.GetParent();
 		UpdateHeights(temp);
 
-		while(temp != null)
+		while(parent != null)
 		{
-			if(BalanceFactor(temp) < -1)
+			if(BalanceFactor(parent) < -1 && Key.compareTo(temp.GetKey()) > 0) // Outside: right-right case
 			{
-				//...
-				UpdateHeights(temp);
+				leftRotate(parent);
+				UpdateHeights(parent);
 				break;
-			} else if(BalanceFactor(temp) > 1)
+			} else if(BalanceFactor(parent) > 1 && Key.compareTo(temp.GetKey()) < 0) // Outside: left-left case
 			{
-				//...
-				UpdateHeights(temp);
+				rightRotate(parent);
+				UpdateHeights(parent);
+				break;
+			} else if(BalanceFactor(parent) < -1 && Key.compareTo(temp.GetKey()) < 0) // Inside: right-left case
+			{
+				rightRotate(temp);
+				leftRotate(parent);
+				UpdateHeights(parent);
+				break;
+			} else if(BalanceFactor(parent) > 1 && Key.compareTo(temp.GetKey()) > 0)	// Inside: left-right case
+			{
+				leftRotate(temp);
+				rightRotate(parent);
+				UpdateHeights(parent);
 				break;
 			}
 			temp = temp.GetParent();
+			parent = temp.GetParent();
 		}
 	}
 
@@ -99,7 +113,18 @@ public class AVL extends BST
 //BalanceFactor Calculation
 	private int BalanceFactor(Node node)
 	{
-		return node.GetLeft().GetHeight() - node.GetRight().GetHeight();
+		int leftHeight = 0;
+		int rightHeight = 0;
+		if(node.GetLeft()!= null)
+		{
+			leftHeight = node.GetLeft().GetHeight();
+		}
+		if(node.GetRight() != null)
+		{
+			rightHeight = node.GetRight().GetHeight();
+		}
+
+		return leftHeight - rightHeight;
 	}
 
 	private int Height(Node node)
@@ -111,7 +136,12 @@ public class AVL extends BST
 		int heightLeft = Height(node.GetLeft());
 		int heightRight = Height(node.GetRight());
 
-		return heightLeft > heightRight ? heightLeft + 1 : heightRight + 1;
+		if(heightLeft > heightRight)
+		{
+			return heightLeft + 1;
+		} else {
+			return heightRight + 1;
+		}
 	}
 
 //Update all node heights in tree/subtree starting at 'node'
@@ -124,5 +154,34 @@ public class AVL extends BST
 		node.SetHeight(Height(node));
 		UpdateHeights(node.GetLeft());
 		UpdateHeights(node.GetRight());
+	}
+
+	//strictly for testing, remove before submission:
+	public void print()
+	{
+		print(root);
+	}
+	public void print(Node node)
+	{
+		if(node == null)
+		{
+			return;
+		}
+		print(node.GetLeft());
+
+		System.out.println(node.GetKey() + "(" + node.GetHeight() + ") ");
+		System.out.print("Left: ");
+		if(node.GetLeft() != null)
+		{
+			System.out.print(node.GetLeft().GetKey() + " ");
+		}
+		System.out.print("Right: ");
+		if(node.GetRight() != null)
+		{
+			System.out.print(node.GetRight().GetKey());
+		}
+		System.out.println();
+
+		print(node.GetRight());
 	}
 }
