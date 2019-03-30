@@ -130,7 +130,25 @@ public class BST implements Tree
 		return "";
 	}
 
-	public void print() {}
+	public void print()
+	{
+		print(root, 0, 10);
+	}
+
+	public void print(Node node, int space, int count)
+	{
+		if (node == null) return;
+
+		space += count;
+
+		print(node.GetRight(), space, count);
+		System.out.print("\n");
+		for (int i = count; i < space; i++)
+			System.out.print(" ");
+		System.out.print(node.GetKey() + "\n");
+
+		print(node.GetLeft(), space, count);
+	}
 
 	public final boolean isEmpty()
 	{

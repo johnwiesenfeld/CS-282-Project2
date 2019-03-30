@@ -171,32 +171,9 @@ public class AVL extends BST implements Tree
 		UpdateAllHeights(node.GetRight());
 	}
 
-	//strictly for testing, remove before submission:
 	public void print()
 	{
-		print(root);
+		super.print();
 	}
-	public void print(Node node)
-	{
-		if(node == null)
-		{
-			return;
-		}
-		print(node.GetLeft());
 
-		System.out.println(node.GetKey() + "(" + node.GetHeight() + ") ");
-		System.out.print("Left: ");
-		if(node.GetLeft() != null)
-		{
-			System.out.print(node.GetLeft().GetKey() + " ");
-		}
-		System.out.print("Right: ");
-		if(node.GetRight() != null)
-		{
-			System.out.print(node.GetRight().GetKey());
-		}
-		System.out.println();
-
-		print(node.GetRight());
-	}
 }
