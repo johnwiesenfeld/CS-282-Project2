@@ -1,54 +1,32 @@
 import java.util.Vector;
 
-public class AVL extends BST
+public class AVL extends BST implements Tree
 {
 	//Default constructor
-	public AVL() { root = null; }
+	public AVL() { this.root = null; }
 
 	//Constructor for intaking BST
-	public AVL(BST bst)
+	public AVL(Tree tree)
 	{
-		Node Root = bst.root;
-
-		//temporarily store nodes sorted in Vector via inOrder walk of BST
-		Vector<Node> tempStorage = new Vector<Node>();
-		StoreNodes(Root, tempStorage);
-
-		//build balanced tree from Vector, by recursively inserting mid-point of vector via pre-order
-		BuildBalancedTree(0, tempStorage.size()-1, tempStorage);
-
-		//Update heights in each Node of new AVL tree
-		UpdateAllHeights(this.root);
+		Node Root = tree.GetRoot();
+		ConvertToAVL(Root);
 	}
 
-	//Constructor for intaking splay
-	//***UNCOMMENT WHEN SPLAY IS WORKING***
-/*	public AVL(Splay splay)
+	public Node GetRoot()
 	{
-		BST bst = (BST) splay;
-		Node Root = bst.root;
-
-		//temporarily store nodes sorted in Vector via inOrder walk of BST
-		Vector<Node> tempStorage = new Vector<Node>();
-		StoreNodes(Root, tempStorage);
-
-		//build balanced tree from Vector, by recursively inserting mid-point of vector via pre-order
-		BuildBalancedTree(0, tempStorage.size()-1, tempStorage);
-
-		//Update heights in each Node of new AVL tree
-		UpdateHeights(this.root);
+		return this.root;
 	}
-*/
+
 //helper method for contstructing AVL from any BST
-	private void StoreNodes(Node node, Vector<Node> tempStorage)
+	private void ConvertToAVL(Node node)
 	{
 		if(node == null)
 		{
 			return;
 		}
-		StoreNodes(node.GetLeft(), tempStorage);
-		tempStorage.add(node);
-		StoreNodes(node.GetRight(), tempStorage);
+		ConvertToAVL(node.GetLeft());
+		Insert(node.GetKey(), node.GetFiles());
+		ConvertToAVL(node.GetRight());
 	}
 
 	private void BuildBalancedTree(int beginning, int end, Vector<Node> tempStorage)
@@ -130,6 +108,11 @@ public class AVL extends BST
 			}
 			temp = temp.GetParent();
 		}
+	}
+
+	public boolean[] Find(String Key)
+	{
+		return super.Find(Key);
 	}
 
 //BalanceFactor Calculation

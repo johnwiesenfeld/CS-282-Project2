@@ -1,9 +1,14 @@
-public class BST
+public class BST implements Tree
 {
 	protected Node root;
 
 	public BST() { root = null; }
-	public BST(BST other) { };
+	public BST(Tree tree) { this.root = tree.GetRoot(); }
+
+	public Node GetRoot()
+	{
+		return this.root;
+	}
 
 	public void Insert(String Key, boolean[] InFile)
 	{
@@ -75,12 +80,14 @@ public class BST
 		toDelete.SetLeft(null);
 	}
 
+	/* //I think the only Find() we need only has String parameter
 	public boolean Find(String Key, int FileNumber)
 	{
 		Node node = getNode(Key);
 		return node == null ? false : node.isInFile(FileNumber);
 	}
-	public boolean[] FindAll(String Key)
+	*/
+	public boolean[] Find(String Key)
 	{
 		Node node = getNode(Key);
 		return node == null ? null : node.GetFiles();
@@ -122,6 +129,8 @@ public class BST
 	{
 		return "";
 	}
+
+	public void print() {}
 
 	public final boolean isEmpty()
 	{

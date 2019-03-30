@@ -1,9 +1,14 @@
-public class Splay extends BST
+public class Splay extends BST implements Tree
 {
 	//private Node treeRoot;
 	public Splay() { root = null; }
 	
-	//public Splay(BST tree) { };
+	//public Splay(Tree tree) { this.root = tree.GetRoot(); };
+
+	public Node GetRoot()
+	{
+		return this.root;
+	}
 	
 	public void Insert(String Key, boolean[] InFile)
 	{
@@ -20,13 +25,15 @@ public class Splay extends BST
 		
 		splay(Key);
 	}
-	public boolean Find(String Key, int FileNumber) // target = key
+	public boolean[] Find(String Key) // target = key
 	{
-		super.Find(Key, FileNumber);
+		boolean[] inFile = super.Find(Key);
 		splay(Key);
 		//return (Key == root.getData());	
-		return (Key.compareTo(root.GetKey()) == 0);
+		return inFile;
 	}
+
+	public void print() {}
 	
 	//public BST splay() { };
 	
