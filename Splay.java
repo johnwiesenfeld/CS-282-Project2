@@ -37,61 +37,81 @@ public class Splay extends BST implements Tree
 	
 	//public BST splay() { };
 	
-	public Node splay(String key)
+	public void splay(String key)
 	{
-		if (super.isEmpty())
-			return null;
+		if (isEmpty())
+			//return null;
 
-		root = splay(root,super.getPredecessor(key));
-		return root;
+		
+		splay(root,key);
+		//return root;
 	}
 	private Node splay(Node Root, String key)
 	{
 		//Empty tree
-		if (Root == null) return null;
+		if (Root == null) return Root;
 
-		if (key.compareTo(Root.GetKey()) < 0) {
+		if (key.compareTo(Root.GetKey()) < 0) 
+		{
 			// Key not in tree
-			if (Root.GetLeft() == null) {
+			if (Root.GetLeft() == null) 
+			{
 				return Root;
 			}
-			if (key.compareTo(Root.GetLeft().GetKey()) < 0) {
+			if (key.compareTo(Root.GetLeft().GetKey()) < 0) 
+			{
 				Root.GetLeft().SetLeft(splay(Root.GetLeft().GetLeft(), key));
-				Root = rightRotate(Root);
+				rightRotate(Root);
 			}
-			else if (key.compareTo(Root.GetLeft().GetKey()) > 0) {
+			else if (key.compareTo(Root.GetLeft().GetKey()) > 0) 
+			{
 				Root.GetLeft().SetRight(splay(Root.GetLeft().GetRight(), key));
 				if (Root.GetLeft().GetRight() != null)
-					Root.SetLeft(leftRotate(Root.GetLeft()));
+				{
+					//Root.SetLeft(leftRotate(Root.GetLeft()));
+					leftRotate(Root.GetLeft());
+				}
 			}
 
 			if (Root.GetLeft() == null)
 				return Root;
 			else
-				return rightRotate(Root);
+			{
+				rightRotate(Root);
+				return Root;
+			}
 		}
 
-		else if (key.compareTo(Root.GetKey()) > 0){
+		else if (key.compareTo(Root.GetKey()) > 0)
+		{
 			// Key not in tree
 			if (Root.GetRight() == null)
 				return Root;
 
-			if (key.compareTo(Root.GetRight().GetKey()) < 0) {
+			if (key.compareTo(Root.GetRight().GetKey()) < 0) 
+			{
 				Root.GetRight().SetLeft(splay(Root.GetRight().GetLeft(), key));
 				if (Root.GetRight().GetLeft() != null)
-					Root.SetRight(rightRotate(Root.GetRight()));
+				{
+					//Root.SetRight(rightRotate(Root.GetRight()));
+					rightRotate(Root.GetRight());
+				}
 			}
 			else if (key.compareTo(Root.GetRight().GetKey()) > 0) {
 				Root.GetRight().SetRight(splay(Root.GetRight().GetRight(), key));
-				Root = leftRotate(Root);
+				leftRotate(Root);
 			}
 
 			if (Root.GetRight() == null)
+			{
 				return Root;
+			}
 			else
-				return leftRotate(Root);
+			{
+				leftRotate(Root);
+				return Root;
+			}
 		}
-
 		else return Root;
 	}
 }
