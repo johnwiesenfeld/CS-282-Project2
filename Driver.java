@@ -114,10 +114,10 @@ public class Driver{
 				AVL avl = new AVL(this.tree);
 				this.tree = avl;
 				break;
-			//case "Splay":
-			//	Splay splay = new Splay(this.tree);
-			//	this.tree = splay;
-			// 	break;
+			case "Splay":
+				Splay splay = new Splay(this.tree);
+				this.tree = splay;
+			 	break;
 			default:
 				System.out.println("ERROR: Invalid Tree type. Valid entries include \"BST, AVL, and Splay.\"");
 				break;

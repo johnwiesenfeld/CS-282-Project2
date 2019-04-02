@@ -1,9 +1,9 @@
 public class Splay extends BST implements Tree
 {
-	//private Node treeRoot;
+
 	public Splay() { root = null; }
-	
-	//public Splay(Tree tree) { this.root = tree.GetRoot(); };
+
+	public Splay(Tree tree) { this.root = tree.GetRoot(); };
 
 	public Node GetRoot()
 	{
@@ -33,7 +33,7 @@ public class Splay extends BST implements Tree
 		return inFile;
 	}
 
-	public void print() {}
+	public void print() { super.print();}
 	
 	//public BST splay() { };
 	
