@@ -17,6 +17,10 @@ public class BST implements Tree
 		{
 			root = insertion;
 		}
+        else if (insertion.compareTo(parent) == 0)
+        {
+            parent.SetFiles(InFile);
+        }
 		else if (insertion.compareTo(parent) > 0)
 		{
 			parent.SetRight(insertion);
