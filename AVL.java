@@ -164,17 +164,6 @@ public class AVL extends BST implements Tree
 			node = node.GetParent();
 		}
 	}
-//Update node heights in entire tree [O(N)]
-	private void UpdateAllHeights(Node node)
-	{
-		if(node == null)
-		{
-			return;
-		}
-		node.SetHeight(Height(node));
-		UpdateAllHeights(node.GetLeft());
-		UpdateAllHeights(node.GetRight());
-	}
 
 	public void print()
 	{
