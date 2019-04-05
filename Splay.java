@@ -34,8 +34,6 @@ public class Splay extends BST implements Tree
 		//return (Key == root.getData());	
 		return inFile;
 	}
-
-	public void print() { super.print();}
 	
 	//public BST splay() { };
 	

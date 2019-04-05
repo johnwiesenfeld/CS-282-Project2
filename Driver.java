@@ -45,7 +45,7 @@ public class Driver{
 		System.out.print('>');
 		int file = in.nextInt();
 		in.nextLine();
-		if(file < 0 || file > 4)
+		if(file < 1 || file > 4)
 		{
 			System.out.println("ERROR: file does not exist.");
 			return;
@@ -54,7 +54,8 @@ public class Driver{
 		System.out.print('>');
 		String word = in.nextLine();
 
-		boolean[] inFile = new boolean[5];
+		file--;
+		boolean[] inFile = new boolean[4];
 		inFile[file] = true;
 
 		this.tree.Insert(word, inFile);

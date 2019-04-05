@@ -166,9 +166,4 @@ public class AVL extends BST implements Tree
 			node = node.GetParent();
 		}
 	}
-
-	public void print()
-	{
-		super.print();
-	}
 }
