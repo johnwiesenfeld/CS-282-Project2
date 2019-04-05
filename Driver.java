@@ -72,9 +72,12 @@ public class Driver{
 		int file = in.nextInt();
 		in.nextLine();
 
-		this.tree.Delete(word, file);
-		
-		System.out.println("Deletion done! ");
+		if(this.tree.Delete(word, file))
+		{
+			System.out.println("Deletion done! ");
+		} else {
+			System.out.println("The word cannot be found!");
+		}
 	}
 	
 	public void find(Scanner in)

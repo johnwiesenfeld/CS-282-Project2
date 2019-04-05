@@ -87,8 +87,9 @@ public class AVL extends BST implements Tree
 
 
 //AVL deletion
-	public void Delete(String Key, int FileNumber)
+	public boolean Delete(String Key, int FileNumber)
 	{
+		if(getNode(Key) == null) return false;
 		Node temp = getNode(Key);
 		Node parent = temp.GetParent();
 		super.Delete(Key, FileNumber);
@@ -122,6 +123,7 @@ public class AVL extends BST implements Tree
 			temp = parent;
 			parent = temp.GetParent();
 		}
+		return true;
 	}
 
 	public boolean[] Find(String Key)

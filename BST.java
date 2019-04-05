@@ -31,10 +31,10 @@ public class BST implements Tree
 		}
 	}
 
-	public void Delete(String Key, int FileNumber)
+	public boolean Delete(String Key, int FileNumber)
 	{
 		Node toDelete = getNode(Key);
-		if (toDelete == null) { return; }
+		if (toDelete == null) return false;
 
 		// two children case
 		if (toDelete.GetRight() != null && toDelete.GetLeft() != null)
@@ -82,6 +82,8 @@ public class BST implements Tree
 		toDelete.SetParent(null);
 		toDelete.SetRight(null);
 		toDelete.SetLeft(null);
+
+		return true;
 	}
 
 	/* //I think the only Find() we need only has String parameter

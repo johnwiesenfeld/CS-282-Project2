@@ -19,11 +19,13 @@ public class Splay extends BST implements Tree
 		splay(Key);
 		
 	}
-	public void Delete(String Key, int FileNumber)
+	public boolean Delete(String Key, int FileNumber)
 	{
 		super.Delete(Key, FileNumber);
 		
 		splay(Key);
+
+		return true;
 	}
 	public boolean[] Find(String Key) // target = key
 	{
