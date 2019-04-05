@@ -64,7 +64,7 @@ public class BST implements Tree
 		else
 		{
 			Node parent = toDelete.GetParent();
-			if (parent.GetLeft().compareTo(toDelete) == 0)
+			if (parent.GetLeft() != null && parent.GetLeft().compareTo(toDelete) == 0)
 			{
 				parent.SetLeft(subTree);
 			}
