@@ -130,7 +130,7 @@ public class BST implements Tree
 
 	public final void print()
 	{
-		print(root, 0, 10);
+		print(root, 0, 5);
 	}
 
 	private final void print(Node node, int space, int count)
