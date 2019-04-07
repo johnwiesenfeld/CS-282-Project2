@@ -1,9 +1,12 @@
 public class Splay extends BST implements Tree
 {
 
-	public Splay() { root = null; }
+	public Splay() { this.root = null; }
 
-	public Splay(Tree tree) { this.root = tree.GetRoot(); };
+	public Splay(Tree tree) 
+	{ 
+		this.root = tree.GetRoot();	
+	}
 
 	public Node GetRoot()
 	{
@@ -14,104 +17,70 @@ public class Splay extends BST implements Tree
 	{
 		//normal BST insertion
 		super.Insert(Key, InFile);
-		
 		//Do splay stuff
-		splay(Key);
+		Splay(getLeaf(Key));
 		
 	}
-	public void Delete(String Key, int FileNumber)
+	public boolean Delete(String Key, int FileNumber)
 	{
 		super.Delete(Key, FileNumber);
 		
-		splay(Key);
+		Splay(getLeaf(Key));
+
+		return true;
 	}
 	public boolean[] Find(String Key) // target = key
 	{
 		boolean[] inFile = super.Find(Key);
-		splay(Key);
-		//return (Key == root.getData());	
+		Splay(getLeaf(Key));
 		return inFile;
 	}
-
-	public void print() { super.print();}
 	
 	//public BST splay() { };
 	
-	public void splay(String key)
-	{
-		if (isEmpty())
-			//return null;
-
-		
-		splay(root,key);
-		//return root;
-	}
-	private Node splay(Node Root, String key)
-	{
-		//Empty tree
-		if (Root == null) return Root;
-
-		if (key.compareTo(Root.GetKey()) < 0) 
-		{
-			// Key not in tree
-			if (Root.GetLeft() == null) 
-			{
-				return Root;
-			}
-			if (key.compareTo(Root.GetLeft().GetKey()) < 0) 
-			{
-				Root.GetLeft().SetLeft(splay(Root.GetLeft().GetLeft(), key));
-				rightRotate(Root);
-			}
-			else if (key.compareTo(Root.GetLeft().GetKey()) > 0) 
-			{
-				Root.GetLeft().SetRight(splay(Root.GetLeft().GetRight(), key));
-				if (Root.GetLeft().GetRight() != null)
-				{
-					//Root.SetLeft(leftRotate(Root.GetLeft()));
-					leftRotate(Root.GetLeft());
-				}
-			}
-
-			if (Root.GetLeft() == null)
-				return Root;
-			else
-			{
-				rightRotate(Root);
-				return Root;
-			}
-		}
-
-		else if (key.compareTo(Root.GetKey()) > 0)
-		{
-			// Key not in tree
-			if (Root.GetRight() == null)
-				return Root;
-
-			if (key.compareTo(Root.GetRight().GetKey()) < 0) 
-			{
-				Root.GetRight().SetLeft(splay(Root.GetRight().GetLeft(), key));
-				if (Root.GetRight().GetLeft() != null)
-				{
-					//Root.SetRight(rightRotate(Root.GetRight()));
-					rightRotate(Root.GetRight());
-				}
-			}
-			else if (key.compareTo(Root.GetRight().GetKey()) > 0) {
-				Root.GetRight().SetRight(splay(Root.GetRight().GetRight(), key));
-				leftRotate(Root);
-			}
-
-			if (Root.GetRight() == null)
-			{
-				return Root;
-			}
-			else
-			{
-				leftRotate(Root);
-				return Root;
-			}
-		}
-		else return Root;
-	}
+	private void Splay(Node key)
+    {
+        while (key.GetParent() != null)
+        {
+            Node Parent = key.GetParent();
+            Node GrandParent = Parent.GetParent();
+            if (GrandParent == null)
+            {
+                if (key == Parent.GetLeft())
+                    rightRotate(key);//makeLeftChildParent(x, Parent);
+                else
+					leftRotate(key); //makeRightChildParent(x, Parent); 
+            } 
+            else
+            {
+                if (key == Parent.GetLeft())
+                {
+                    if (Parent == GrandParent.GetLeft())
+                    {
+                        rightRotate(Parent);
+                        rightRotate(key);
+                    }
+                    else 
+                    {
+                        rightRotate(key);
+                        leftRotate(key); 
+                    }
+                }
+                else 
+                {
+                    if (Parent == GrandParent.GetLeft())
+                    {
+                        leftRotate(key); 
+                        rightRotate(key);
+                    } 
+                    else 
+                    {
+                        leftRotate(Parent); 
+                        leftRotate(key);
+                    }
+                }
+            }
+        }
+        this.root = key;
+    }
 }

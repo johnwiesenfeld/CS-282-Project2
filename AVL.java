@@ -80,34 +80,50 @@ public class AVL extends BST implements Tree
 				UpdateHeights(parent);
 				break;
 			}
-			temp = temp.GetParent();
+			temp = parent;
 			parent = temp.GetParent();
 		}
 	}
 
 
 //AVL deletion
-	public void Delete(String Key, int FileNumber)
+	public boolean Delete(String Key, int FileNumber)
 	{
-		Node temp = getNode(Key).GetParent();
+		if(getNode(Key) == null) return false;
+		Node temp = getNode(Key);
+		Node parent = temp.GetParent();
 		super.Delete(Key, FileNumber);
-		if(!isEmpty()) {UpdateHeights(temp);}
+		if(!isEmpty()) {UpdateHeights(parent);}
 
-		while(temp != null)
+		while(parent != null)
 		{
-			if(BalanceFactor(temp) < -1)
+			if(BalanceFactor(parent) < -1 && parent.GetRight().GetRight() != null) // Outside: right-right case
 			{
-				//...
-				UpdateHeights(temp);
+				leftRotate(parent);
+				UpdateHeights(parent);
 				break;
-			} else if(BalanceFactor(temp) > 1)
+			} else if(BalanceFactor(parent) > 1 && parent.GetLeft().GetLeft() != null) // Outside: left-left case
 			{
-				//...
-				UpdateHeights(temp);
+				rightRotate(parent);
+				UpdateHeights(parent);
+				break;
+			} else if(BalanceFactor(parent) < -1 && parent.GetRight().GetLeft() != null) // Inside: right-left case
+			{
+				rightRotate(temp);
+				leftRotate(parent);
+				UpdateHeights(parent);
+				break;
+			} else if(BalanceFactor(parent) > 1 && parent.GetLeft().GetRight()!= null)	// Inside: left-right case
+			{
+				leftRotate(temp);
+				rightRotate(parent);
+				UpdateHeights(parent);
 				break;
 			}
-			temp = temp.GetParent();
+			temp = parent;
+			parent = temp.GetParent();
 		}
+		return true;
 	}
 
 	public boolean[] Find(String Key)
@@ -118,18 +134,9 @@ public class AVL extends BST implements Tree
 //BalanceFactor Calculation
 	private int BalanceFactor(Node node)
 	{
-		int leftHeight = 0;
-		int rightHeight = 0;
-		if(node.GetLeft()!= null)
-		{
-			leftHeight = node.GetLeft().GetHeight();
-		}
-		if(node.GetRight() != null)
-		{
-			rightHeight = node.GetRight().GetHeight();
-		}
+		if(node == null) return 0;
 
-		return leftHeight - rightHeight;
+		return Height(node.GetLeft()) - Height(node.GetRight());
 	}
 
 //Calculate Height of a node recursively
@@ -159,21 +166,4 @@ public class AVL extends BST implements Tree
 			node = node.GetParent();
 		}
 	}
-//Update node heights in entire tree [O(N)]
-	private void UpdateAllHeights(Node node)
-	{
-		if(node == null)
-		{
-			return;
-		}
-		node.SetHeight(Height(node));
-		UpdateAllHeights(node.GetLeft());
-		UpdateAllHeights(node.GetRight());
-	}
-
-	public void print()
-	{
-		super.print();
-	}
-
 }

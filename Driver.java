@@ -15,10 +15,10 @@ public class Driver{
 	{
 		BST bst = new BST();
 
-		bst = load("file1.txt", bst);
-		bst = load("file2.txt", bst);
-		bst = load("file3.txt", bst);
-		bst = load("file4.txt", bst);
+		//bst = load("file1.txt", bst);
+		//bst = load("file2.txt", bst);
+		//bst = load("file3.txt", bst);
+		//bst = load("file4.txt", bst);
 		this.tree = bst;
 		Scanner in = new Scanner(System.in);
 		boolean exit = false;
@@ -45,7 +45,7 @@ public class Driver{
 		System.out.print('>');
 		int file = in.nextInt();
 		in.nextLine();
-		if(file < 0 || file > 4)
+		if(file < 1 || file > 4)
 		{
 			System.out.println("ERROR: file does not exist.");
 			return;
@@ -54,7 +54,9 @@ public class Driver{
 		System.out.print('>');
 		String word = in.nextLine();
 
-		boolean[] inFile = new boolean[5];
+		//subtracts 1 from user input to work with boolean array
+		file--;
+		boolean[] inFile = new boolean[4];
 		inFile[file] = true;
 
 		this.tree.Insert(word, inFile);
@@ -72,9 +74,16 @@ public class Driver{
 		int file = in.nextInt();
 		in.nextLine();
 
-		this.tree.Delete(word, file);
-		
-		System.out.println("Deletion done! ");
+		//subtracts 1 from user input to work with boolean array
+		file--;
+
+		//Delete returns boolean
+		if(this.tree.Delete(word, file))
+		{
+			System.out.println("Deletion done! ");
+		} else {
+			System.out.println("The word cannot be found!");
+		}
 	}
 	
 	public void find(Scanner in)
@@ -89,11 +98,11 @@ public class Driver{
 			System.out.println("The word cannot be found!");
 			return;
 		}
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < 4; i++)
 		{
 			if(inFile[i] == true)
 			{
-				System.out.print(i + " ");
+				System.out.print((i+1) + " ");
 			}
 		}
 		System.out.println();
@@ -155,13 +164,13 @@ public class Driver{
 		try
 		{
 			BST bst1 = Tree;
-			boolean[] inFile = new boolean[5];
+			boolean[] inFile = new boolean[4];
 			FileReader fr = new FileReader(FileName);
 			BufferedReader br = new BufferedReader(fr);
 			String line;
 			if(FileName.equals("file1.txt"))
 			{
-				inFile[1]= true;
+				inFile[0]= true;
 				while((line = br.readLine()) != null)
 				{
 					try {
@@ -177,7 +186,7 @@ public class Driver{
 			}
 			else if(FileName.equals("file2.txt"))
 			{
-				inFile[2]= true;
+				inFile[1]= true;
 				while((line = br.readLine()) != null)
 				{
 					try {
@@ -193,7 +202,7 @@ public class Driver{
 			}
 			else if(FileName.equals("file3.txt"))
 			{
-				inFile[3]= true;
+				inFile[2]= true;
 				while((line = br.readLine()) != null)
 				{
 					try {
@@ -209,7 +218,7 @@ public class Driver{
 			}
 			else if(FileName.equals("file4.txt"))
 			{
-				inFile[4]= true;
+				inFile[3]= true;
 				while((line = br.readLine()) != null)
 				{
 					try {

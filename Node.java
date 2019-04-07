@@ -4,7 +4,7 @@ public class Node implements Comparable<Node>
 	private boolean[] inFile;
 	private Node left, right, parent;
 	private int height;
-	private static final int fileCount = 5;
+	private static final int fileCount = 4;
 
 	public Node(String Key)
 	{
@@ -33,24 +33,7 @@ public class Node implements Comparable<Node>
 		parent = Parent;
 		height = 0;
 	}
-	public Node(String Key, boolean[] InFile, Node Parent, Node Left, Node Right)
-	{
-		key = Key;
-		inFile = InFile;
-		left = Left;
-		right = Right;
-		parent = Parent;
-		height = 0;
-	}
-	public Node(String Key, boolean[] InFile, Node Parent, Node Left, Node Right, int Height)
-	{
-		key = Key;
-		inFile = InFile;
-		left = Left;
-		right = Right;
-		parent = Parent;
-		height = Height;
-	}
+
 
 	public int compareTo(Node other)
 	{

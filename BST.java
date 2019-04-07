@@ -20,6 +20,7 @@ public class BST implements Tree
         else if (insertion.compareTo(parent) == 0)
         {
             parent.SetFiles(InFile);
+            //Or boolean arrays together with existing node
         }
 		else if (insertion.compareTo(parent) > 0)
 		{
@@ -31,13 +32,17 @@ public class BST implements Tree
 		}
 	}
 
-    // we could probably change implementation.
-    // the only time we need to call delete is when a key is being
-    // from all files.
+<<<<<<< HEAD
 	public void Delete(String Key, int FileNumber)
+=======
+	public boolean Delete(String Key, int FileNumber)
+>>>>>>> f7c50281e5b1552c41fb5fb27c3f29eb86847bb0
 	{
 		Node toDelete = getNode(Key);
-		if (toDelete == null) { return; }
+		if (toDelete == null) return false;
+		//XOR on delete
+		//Match check
+		//False check
 
 		// two children case
 		if (toDelete.GetRight() != null && toDelete.GetLeft() != null)
@@ -67,7 +72,7 @@ public class BST implements Tree
 		else
 		{
 			Node parent = toDelete.GetParent();
-			if (parent.GetLeft().compareTo(toDelete) == 0)
+			if (parent.GetLeft() != null && parent.GetLeft().compareTo(toDelete) == 0)
 			{
 				parent.SetLeft(subTree);
 			}
@@ -85,15 +90,10 @@ public class BST implements Tree
 		toDelete.SetParent(null);
 		toDelete.SetRight(null);
 		toDelete.SetLeft(null);
+
+		return true;
 	}
 
-	/* //I think the only Find() we need only has String parameter
-	public boolean Find(String Key, int FileNumber)
-	{
-		Node node = getNode(Key);
-		return node == null ? false : node.isInFile(FileNumber);
-	}
-	*/
 	public boolean[] Find(String Key)
 	{
 		Node node = getNode(Key);
@@ -132,17 +132,12 @@ public class BST implements Tree
 			return node;
 	}
 
-	public final String toString()
+	public final void print()
 	{
-		return "";
+		print(root, 0, 5);
 	}
 
-	public void print()
-	{
-		print(root, 0, 10);
-	}
-
-	public void print(Node node, int space, int count)
+	private final void print(Node node, int space, int count)
 	{
 		if (node == null) return;
 
