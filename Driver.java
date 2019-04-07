@@ -15,10 +15,10 @@ public class Driver{
 	{
 		BST bst = new BST();
 
-		bst = load("file1.txt", bst);
-		bst = load("file2.txt", bst);
-		bst = load("file3.txt", bst);
-		bst = load("file4.txt", bst);
+		//bst = load("file1.txt", bst);
+		//bst = load("file2.txt", bst);
+		//bst = load("file3.txt", bst);
+		//bst = load("file4.txt", bst);
 		this.tree = bst;
 		Scanner in = new Scanner(System.in);
 		boolean exit = false;
