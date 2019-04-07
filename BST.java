@@ -31,6 +31,9 @@ public class BST implements Tree
 		}
 	}
 
+    // we could probably change implementation.
+    // the only time we need to call delete is when a key is being
+    // from all files.
 	public void Delete(String Key, int FileNumber)
 	{
 		Node toDelete = getNode(Key);
