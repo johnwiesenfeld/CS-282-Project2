@@ -19,8 +19,12 @@ public class BST implements Tree
 		}
         else if (insertion.compareTo(parent) == 0)
         {
-            parent.SetFiles(InFile);
-            //Or boolean arrays together with existing node
+            boolean[] current = parent.GetFiles();
+            for (int i = 0; i < 4; ++i)
+            {
+                current[i] = current[i] | InFile[i];
+            }
+            parent.SetFiles(current);
         }
 		else if (insertion.compareTo(parent) > 0)
 		{
@@ -32,17 +36,23 @@ public class BST implements Tree
 		}
 	}
 
-<<<<<<< HEAD
-	public void Delete(String Key, int FileNumber)
-=======
-	public boolean Delete(String Key, int FileNumber)
->>>>>>> f7c50281e5b1552c41fb5fb27c3f29eb86847bb0
+	//public boolean Delete(String Key, int FileNumber)
+    public boolean Delete(String Key, boolean[] InFile)
 	{
 		Node toDelete = getNode(Key);
 		if (toDelete == null) return false;
-		//XOR on delete
-		//Match check
-		//False check
+
+        boolean lazyDelete = false, noDelete = true;
+        boolean[] current = toDelete.GetFiles();
+        for (int i = 0; i < 4; ++i)
+        {
+            current[i] = current[i] ^ InFile[i];
+            if (current[i]) { lazyDelete = true; }
+            if (current[i] != InFile[i]) { noDelete = false; }
+        }
+
+        if (noDelete) { return false; }
+        if (lazyDelete) { return true; }
 
 		// two children case
 		if (toDelete.GetRight() != null && toDelete.GetLeft() != null)
