@@ -15,10 +15,10 @@ public class Driver{
 	{
 		BST bst = new BST();
 
-		//bst = load("file1.txt", bst);
-		//bst = load("file2.txt", bst);
-		//bst = load("file3.txt", bst);
-		//bst = load("file4.txt", bst);
+		bst = load("file1.txt", bst);
+		bst = load("file2.txt", bst);
+		bst = load("file3.txt", bst);
+		bst = load("file4.txt", bst);
 		this.tree = bst;
 		Scanner in = new Scanner(System.in);
 		boolean exit = false;
@@ -43,22 +43,30 @@ public class Driver{
 	{
 		System.out.println("Which file? ");
 		System.out.print('>');
-		int file = in.nextInt();
-		in.nextLine();
-		if(file < 1 || file > 4)
+		String files = in.nextLine();
+		String[] filesArr = files.split(",");
+		boolean[] inFile = new boolean[4];
+		for(int i = 0; i < filesArr.length; i++)
 		{
-			System.out.println("ERROR: file does not exist.");
-			return;
+			int temp = Integer.parseInt(filesArr[i]);
+			if(temp < 1 || temp > 4)
+			{
+				System.out.println("ERROR: file does not exist.");
+				return;
+			}
+			if(temp == 1)
+				inFile[0] = true;
+			else if(temp == 2)
+				inFile[1] = true;
+			else if(temp == 3)
+				inFile[2] = true;
+			else //if(temp == 4)
+				inFile[3] = true;
+			
 		}
 		System.out.println("Word? ");
 		System.out.print('>');
 		String word = in.nextLine();
-
-		//subtracts 1 from user input to work with boolean array
-		file--;
-		boolean[] inFile = new boolean[4];
-		inFile[file] = true;
-
 		this.tree.Insert(word, inFile);
 		
 		System.out.println("Insertion done! ");
@@ -71,14 +79,28 @@ public class Driver{
 		String word = in.nextLine();
 		System.out.println("Which file? ");
 		System.out.print('>');
-		int file = in.nextInt();
-		in.nextLine();
-
-		//subtracts 1 from user input to work with boolean array
-		file--;
-
+		String files = in.nextLine();
+		String[] filesArr = files.split(",");
+		boolean[] inFile = new boolean[4];
+		for(int i = 0; i < filesArr.length; i++)
+		{
+			int temp = Integer.parseInt(filesArr[i]);
+			if(temp < 1 || temp > 4)
+			{
+				System.out.println("ERROR: file does not exist.");
+				return;
+			}
+			if(temp == 1)
+				inFile[0] = true;
+			else if(temp == 2)
+				inFile[1] = true;
+			else if(temp == 3)
+				inFile[2] = true;
+			else //if(temp == 4)
+				inFile[3] = true;
+		}
 		//Delete returns boolean
-		if(this.tree.Delete(word, file))
+		if(this.tree.Delete(word, inFile))
 		{
 			System.out.println("Deletion done! ");
 		} else {
