@@ -14,12 +14,12 @@ public class Driver{
 	public void run()
 	{
 		BST bst = new BST();
+		tree = bst;
+		load("file1.txt", tree);
+		load("file2.txt", tree);
+		load("file3.txt", tree);
+		load("file4.txt", tree);
 
-		bst = load("file1.txt", bst);
-		bst = load("file2.txt", bst);
-		bst = load("file3.txt", bst);
-		bst = load("file4.txt", bst);
-		this.tree = bst;
 		Scanner in = new Scanner(System.in);
 		boolean exit = false;
 		while (!exit)
@@ -181,90 +181,101 @@ public class Driver{
 			"\nquit (ends the program)\n");
 	}
 
-	public BST load(String FileName, BST Tree)
+	public static void load(String FileName, Tree Tree)
 	{
 		try
 		{
-			BST bst1 = Tree;
 			boolean[] inFile = new boolean[4];
 			FileReader fr = new FileReader(FileName);
-			BufferedReader br = new BufferedReader(fr);
+			//BufferedReader br = new BufferedReader(fr);
 			String line;
+			System.out.print(FileName + "\t");
 			if(FileName.equals("file1.txt"))
 			{
 				inFile[0]= true;
-				while((line = br.readLine()) != null)
+				Scanner sc0 = new Scanner(fr);
+				while((sc0.hasNextLine()))
 				{
+					line = sc0.nextLine();
 					try {
 						System.out.println(line);
-						bst1.Insert(line, inFile); // fatal error HELP!!!
+						Tree.Insert(line, inFile); // fatal error HELP!!!
 					} catch (IllegalArgumentException ex) {
 						System.out.println(ex);
 						System.out.println("ERROR: Exiting program, please edit input file.");
 						System.exit(0);
 					}
 				}
+				sc0.close();
 				//System.out.println(bst1.toString());
 			}
 			else if(FileName.equals("file2.txt"))
 			{
 				inFile[1]= true;
-				while((line = br.readLine()) != null)
+				Scanner sc1 = new Scanner(fr);
+				while(sc1.hasNextLine())
 				{
+					line = sc1.nextLine();
 					try {
 						System.out.println(line);
-						bst1.Insert(line, inFile); // fatal error HELP!!!
+						Tree.Insert(line, inFile); // fatal error HELP!!!
 					} catch (IllegalArgumentException ex) {
 						System.out.println(ex);
 						System.out.println("ERROR: Exiting program, please edit input file.");
 						System.exit(0);
 					}
 				}
+				sc1.close();
 				//System.out.println(bst1.toString());
 			}
 			else if(FileName.equals("file3.txt"))
 			{
 				inFile[2]= true;
-				while((line = br.readLine()) != null)
+				Scanner sc2 = new Scanner(fr);
+				while(sc2.hasNextLine())
 				{
+					line = sc2.nextLine();
 					try {
 						System.out.println(line);
-						bst1.Insert(line, inFile); // fatal error HELP!!!
+						Tree.Insert(line, inFile); // fatal error HELP!!!
 					} catch (IllegalArgumentException ex) {
 						System.out.println(ex);
 						System.out.println("ERROR: Exiting program, please edit input file.");
 						System.exit(0);
 					}
 				}
+				sc2.close();
 				//System.out.println(bst1.toString());
 			}
 			else if(FileName.equals("file4.txt"))
 			{
 				inFile[3]= true;
-				while((line = br.readLine()) != null)
+				Scanner sc3 = new Scanner(fr);
+				while(sc3.hasNextLine())
 				{
+					line = sc3.nextLine();
 					try {
 						System.out.println(line);
-						bst1.Insert(line, inFile); // fatal error HELP!!!
+						Tree.Insert(line, inFile); // fatal error HELP!!!
 					} catch (IllegalArgumentException ex) {
 						System.out.println(ex);
 						System.out.println("ERROR: Exiting program, please edit input file.");
 						System.exit(0);
 					}
 				}
+				sc3.close();
 				//System.out.println(bst1.toString());
 			}
 			else
 				System.out.println("\nERROR: Please save data.txt and run app again");
-			br.close();
+
+			//br.close();
 			fr.close();
-			return bst1;
 		}
 		catch (Exception exception1)
 		{
 			System.out.println("Error opening input file");
 			System.exit(0);
-			return null;
 		}
 	}
 }

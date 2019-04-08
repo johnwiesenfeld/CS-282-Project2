@@ -12,7 +12,8 @@ public class BST implements Tree
 
 	public void Insert(String Key, boolean[] InFile)
 	{
-		Node parent = getLeaf(Key), insertion = new Node(Key, InFile, parent);
+		Node parent = getLeaf(Key);
+		Node insertion = new Node(Key, InFile, parent);
 		if (isEmpty())
 		{
 			root = insertion;
@@ -20,7 +21,7 @@ public class BST implements Tree
         else if (insertion.compareTo(parent) == 0)
         {
             boolean[] current = parent.GetFiles();
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 4; i++)
             {
                 current[i] = current[i] | InFile[i];
             }
@@ -127,13 +128,21 @@ public class BST implements Tree
 	{
 		Node key = new Node(Key);
 		Node temp = root, tempParent = null;
+
 		while (temp != null)
 		{
-				tempParent = temp;
-				int cmp = key.compareTo(temp);
-				if (cmp == 0) { return temp; }
-				else if (cmp > 0) { temp = temp.GetRight(); }
-				else { temp = temp.GetLeft(); }
+			boolean[] tempFiles = temp.GetFiles();
+			for(int i = 0; i < 4; i++)
+			{
+				System.out.print(tempFiles[i] + " ");
+			}
+			System.out.println();
+
+			tempParent = temp;
+			int cmp = key.compareTo(temp);
+			if (cmp == 0) { return temp; }
+			else if (cmp > 0) { temp = temp.GetRight(); }
+			else { temp = temp.GetLeft(); }
 		}
 		return tempParent;
 	}
