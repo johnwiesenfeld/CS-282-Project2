@@ -36,13 +36,12 @@ public class BST implements Tree
 		}
 	}
 
-	public boolean Delete(String Key, int FileNumber)
+	/*public boolean Delete(String Key, int FileNumber)
     {
-        Node temp = getNode(Key);
-		boolean[] arr = temp.GetFiles();
+        boolean[] arr;
         arr[FileNumber] = true;
         return Delete(Key, arr);
-    }
+    }*/
     public boolean Delete(String Key, boolean[] InFile)
 	{
 		Node toDelete = getNode(Key);
