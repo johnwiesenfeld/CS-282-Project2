@@ -21,13 +21,13 @@ public class Splay extends BST implements Tree
 		Splay(getNode(Key));
 		
 	}
-	public boolean Delete(String Key, int FileNumber)
+	public boolean Delete(String Key, boolean[] InFile)
 	{
-		super.Delete(Key, FileNumber);
+		boolean successfulDelete = super.Delete(Key, InFile);
 		
 		Splay(getNode(Key));
 
-		return true;
+		return successfulDelete;
 	}
 	public boolean[] Find(String Key) // target = key
 	{
@@ -46,36 +46,36 @@ public class Splay extends BST implements Tree
             Node GrandParent = Parent.GetParent();
             if (GrandParent == null)
             {
-                if (key == Parent.GetLeft())
+                if (Parent.GetLeft() != null && key == Parent.GetLeft())
                     rightRotate(key);//makeLeftChildParent(key, Parent);
                 else
 					leftRotate(key); //makeRightChildParent(key, Parent); 
-            } 
+            }
             else
             {
                 if (key == Parent.GetLeft())
                 {
-                    if (Parent == GrandParent.GetLeft())
+                    if (GrandParent != null && Parent == GrandParent.GetLeft())
                     {
                         rightRotate(Parent);
                         rightRotate(key);
                     }
-                    else 
+                    else
                     {
                         rightRotate(key);
-                        leftRotate(key); 
+                        leftRotate(key);
                     }
                 }
-                else 
+                else
                 {
-                    if (Parent == GrandParent.GetLeft())
+                    if (GrandParent != null && Parent == GrandParent.GetLeft())
                     {
-                        leftRotate(key); 
+                        leftRotate(key);
                         rightRotate(key);
-                    } 
-                    else 
+                    }
+                    else
                     {
-                        leftRotate(Parent); 
+                        leftRotate(Parent);
                         leftRotate(key);
                     }
                 }
@@ -95,7 +95,7 @@ public class Splay extends BST implements Tree
          {
              if (p == p.GetParent().GetLeft())
                  p.GetParent().SetLeft(c);
-             else 
+             else
                  p.GetParent().SetRight(c);
          }
          if (c.GetRight() != null)
@@ -137,7 +137,7 @@ public class Splay extends BST implements Tree
                     makeLeftChildParent(key, Parent);
                 else
 					makeRightChildParent(key, Parent); 
-            } 
+            }
             else
             {
                 if (key == Parent.GetLeft())
@@ -147,20 +147,20 @@ public class Splay extends BST implements Tree
                         makeLeftChildParent(Parent, GrandParent);
                         makeLeftChildParent(key, Parent);
                     }
-                    else 
+                    else
                     {
                         makeLeftChildParent(key, key.GetParent());
                         makeRightChildParent(key, key.GetParent());
                     }
                 }
-                else 
+                else
                 {
                     if (Parent == GrandParent.GetLeft())
                     {
                         makeRightChildParent(key, key.GetParent());
                         makeLeftChildParent(key, key.GetParent());
-                    } 
-                    else 
+                    }
+                    else
                     {
                         makeRightChildParent(Parent, GrandParent);
                         makeRightChildParent(key, Parent);
