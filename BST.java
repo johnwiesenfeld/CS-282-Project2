@@ -18,15 +18,15 @@ public class BST implements Tree
 		{
 			root = insertion;
 		}
-        else if (insertion.compareTo(parent) == 0)
-        {
-            boolean[] current = parent.GetFiles();
-            for (int i = 0; i < 4; i++)
-            {
-                current[i] = current[i] | InFile[i];
-            }
-            parent.SetFiles(current);
-        }
+		else if (insertion.compareTo(parent) == 0)
+		{
+			boolean[] current = parent.GetFiles();
+			for (int i = 0; i < 4; i++)
+			{
+				current[i] = current[i] | InFile[i];
+			}
+			parent.SetFiles(current);
+		}
 		else if (insertion.compareTo(parent) > 0)
 		{
 			parent.SetRight(insertion);
@@ -38,27 +38,31 @@ public class BST implements Tree
 	}
 
 	/*public boolean Delete(String Key, int FileNumber)
-    {
-        boolean[] arr;
-        arr[FileNumber] = true;
-        return Delete(Key, arr);
-    }*/
-    public boolean Delete(String Key, boolean[] InFile)
+	{
+		boolean[] arr;
+		arr[FileNumber] = true;
+		return Delete(Key, arr);
+	}*/
+	public boolean Delete(String Key, boolean[] InFile)
 	{
 		Node toDelete = getNode(Key);
 		if (toDelete == null) return false;
 
-        boolean lazyDelete = false, noDelete = true;
-        boolean[] current = toDelete.GetFiles();
-        for (int i = 0; i < 4; ++i)
-        {
-            current[i] = current[i] ^ InFile[i];
-            if (current[i]) { lazyDelete = true; }
-            if (current[i] != InFile[i]) { noDelete = false; }
-        }
+		boolean lazyDelete = false, noDelete = false;
+		boolean[] current = toDelete.GetFiles();
+		for (int i = 0; i < 4; ++i)
+		{
+			if(!current[i] && InFile[i]) { noDelete = true; }
+			if(current[i])
+			{
+				current[i] = current[i] ^ InFile[i];
+			}
 
-        if (noDelete) { return false; }
-        if (lazyDelete) { return true; }
+			if (current[i]) { lazyDelete = true; }
+		}
+
+		if (noDelete) { return false; }
+		if (lazyDelete) { return true; }
 
 		// two children case
 		if (toDelete.GetRight() != null && toDelete.GetLeft() != null)
