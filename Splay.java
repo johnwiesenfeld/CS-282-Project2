@@ -24,8 +24,7 @@ public class Splay extends BST implements Tree
 	public boolean Delete(String Key, boolean[] InFile)
 	{
 		boolean successfulDelete = super.Delete(Key, InFile);
-		
-		Splay(getNode(Key));
+		Splay(getLeaf(Key));
 
 		return successfulDelete;
 	}
