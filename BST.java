@@ -12,6 +12,9 @@ public class BST implements Tree
 
 	public void Insert(String Key, boolean[] InFile)
 	{
+		System.out.println("Begin Insert:");
+		print();
+
 		Node parent = getLeaf(Key);
 		Node insertion = new Node(Key, InFile, parent);
 		if (isEmpty())
@@ -35,6 +38,10 @@ public class BST implements Tree
 		{
 			parent.SetLeft(insertion);
 		}
+
+		System.out.println("After Insert:");
+		print();
+		System.out.println();
 	}
 
 	/*public boolean Delete(String Key, int FileNumber)
@@ -135,13 +142,6 @@ public class BST implements Tree
 
 		while (temp != null)
 		{
-			boolean[] tempFiles = temp.GetFiles();
-			for(int i = 0; i < 4; i++)
-			{
-				System.out.print(tempFiles[i] + " ");
-			}
-			System.out.println();
-
 			tempParent = temp;
 			int cmp = key.compareTo(temp);
 			if (cmp == 0) { return temp; }
@@ -162,7 +162,7 @@ public class BST implements Tree
 
 	public final void print()
 	{
-		print(root, 0, 5);
+		print(root, 0, 10);
 	}
 
 	private final void print(Node node, int space, int count)
@@ -175,7 +175,22 @@ public class BST implements Tree
 		System.out.print("\n");
 		for (int i = count; i < space; i++)
 			System.out.print(" ");
-		System.out.print(node.GetKey() + "\n");
+		System.out.print(node.GetKey() + ":");
+
+		char bool;
+		boolean[] tempFiles = node.GetFiles();
+		for(int i = 0; i < 4; i++)
+		{
+			if(tempFiles[i] == true)
+			{
+				bool = 'T';
+			} else
+			{
+				bool = 'F';
+			}
+			System.out.print(bool + " ");
+		}
+		System.out.println();
 
 		print(node.GetLeft(), space, count);
 	}
