@@ -1,0 +1,42 @@
+COMP282 Section 16304 Project 2
+
+Group members:
+Nicholas Warfield
+Javier Aguayo
+John Wiesenfeld
+
+Project Status
+--------------------
+Compiles and runs properly, except for strange bug during loading files which we've discussed at length with the professor.
+
+When loading files, the nodes that are already inserted into the tree are being assigned file associations that are incorrect. It seems that any word unique to file 1 is assigned an association with any other file that contains a word that is also in file 1. The same happens for all the other files. After loading all four files, most of the words in file 1 are assigned to files 1,2,3 & 4. Most of the words in file 2 are assigned to files 2,3 & 4. For file 3 they are in 3 & 4, and in file 4 they say file 4.
+
+We performed manual insertions, meaning we run our program without loading the files, then performed the insert operation through the driver for all the words in all four files, also passing their proper file associations. In this case, the program performs exactly as expected, which tells us the problem is not with any of our data structures, but must be something in the load method of the driver. We tried debugging in every way we could think of, printing file associations during inserts, re-assigning the inFile array to all false after each insert, changing between bufferedreader and scanner, among many other things, and although this helped us narrow the problem down to the load method, the problem remained elusive.
+
+Nick and John visited with Professor Mkrtchyan on Wednesday (Javier was sick) and were unable to come to the bottom of the issue, but Professor Mkrtchyan said she would continue to debug to help us, as we keep working on it as well. As of this time we have not been able to track down the issue, and Professor Mkrtchyan advised us not to waste time re-writing our code to get around it, since the point of the project are the data structures, and those are all working exactly as expected. 
+
+
+Development of Code:
+--------------------
+The following is a rough recounting of how our project developed:
+
+We liked the collaborative power of using git on the last project, so we decided to use it again for this project. This time John set up the repo to learn how to do it.
+
+We met very early, the first week the project was assigned and brainstormed ways to implement the prompt. We settled on the idea of making a BST superclass and extending AVL and Splay classes from that, since they are also BSTs and will use many of the same methods. 
+
+Nick was assigned to writing most of the BST class (except left and right rotate), John was assigned to write the AVL class and the left and right rotate methods in BST class, and Javier was assigned to write the Splay class.
+
+Once Nick had written BST class, Javier wrote the majority of the Driver class, which was then edited by John and Nick. 
+
+While trying to get the "select" method working, John realized that the intention we had for switching between subclasses by constructing a new AVL from the old BST (for example) meant that we couldn't write general methods in the driver. We'd have to write an insert for AVL, an insert for BST, and an insert for Splay, plus keep track of which one was currently being used. After some reading about this type of problem and learning about interfaces, John write a "Tree" interface so that the Driver only had to retain and manipulate a Tree interface object, and select() could construct a new tree from an old one, then reassigned the private "Tree" interface variable.
+
+Javier noticed while writing Splay that the left and right rotate methods in BST were causing issues with his rotation, so he wrote local methods for those in the Splay class.
+
+John's first idea for constructing an AVL was do dissassemble the tree being passed in into a sorted vector by doing an in-order walk of the old tree, then re-build the tree recursively from the middle node in the vector each time, so that the tree will be constructed balanaced. This worked for small trees, but when we started using the txt files for the project, the AVL construction was very very very slow. John decided to just scrap the idea and walk along the old tree, while performing an insert each time on the new tree, and the speed improved, and was no longer a problem.
+
+We met again on April 5th to discuss status and problems and came up with strategies for handling the file assignments during delete and insert methods. We decided to OR the boolean arrays during an insert and XOR during a delete. Nick wrote these in, and then John tweaked delete slightly to deal with a bug that occured when trying to delete from a file that a node was not assigned to. 
+
+Once everything was working, the last stage was figuring our the loading error that was discussed above in the "Project Status" section, which is still unresolved. We were told by the Professor to continue trying to debug, but not re-write our entire implementation because it would be a waste of time. As of now we have not been able to figure it out.
+
+
+This summary file was written by John, edited by Nick and Javier.

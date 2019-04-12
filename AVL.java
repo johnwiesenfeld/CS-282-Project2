@@ -1,4 +1,10 @@
-import java.util.Vector;
+/*
+COMP282 Section 16304 Project 2
+Group members:
+Nicholas Warfield
+Javier Aguayo
+John Wiesenfeld
+*/
 
 public class AVL extends BST implements Tree
 {
@@ -17,7 +23,7 @@ public class AVL extends BST implements Tree
 		return this.root;
 	}
 
-//helper method for contstructing AVL from any BST
+//recusrive helper method for contstructing AVL from any BST
 	private void ConvertToAVL(Node node)
 	{
 		if(node == null)
@@ -27,21 +33,6 @@ public class AVL extends BST implements Tree
 		ConvertToAVL(node.GetLeft());
 		Insert(node.GetKey(), node.GetFiles());
 		ConvertToAVL(node.GetRight());
-	}
-
-	private void BuildBalancedTree(int beginning, int end, Vector<Node> tempStorage)
-	{
-		if(beginning > end)
-		{
-			return;
-		}
-
-		int middle = (beginning + end)/2;
-		Node temp = tempStorage.get(middle);
-		
-		super.Insert(temp.GetKey(), temp.GetFiles());
-		BuildBalancedTree(0, middle - 1, tempStorage);
-		BuildBalancedTree(middle + 1, end, tempStorage);
 	}
 
 //AVL insertion

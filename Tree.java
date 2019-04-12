@@ -1,3 +1,11 @@
+/*
+COMP282 Section 16304 Project 2
+Group members:
+Nicholas Warfield
+Javier Aguayo
+John Wiesenfeld
+*/
+
 public interface Tree
 {
 	public Node GetRoot();

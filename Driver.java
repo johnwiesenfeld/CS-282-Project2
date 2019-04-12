@@ -1,3 +1,11 @@
+/*
+COMP282 Section 16304 Project 2
+Group members:
+Nicholas Warfield
+Javier Aguayo
+John Wiesenfeld
+*/
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -13,8 +21,11 @@ public class Driver{
 
 	public void run()
 	{
+		//Create new BST and assign it to Tree interface
 		BST bst = new BST();
 		tree = bst;
+
+		//load data from files
 		load("file1.txt");
 		load("file2.txt");
 		load("file3.txt");
@@ -45,6 +56,8 @@ public class Driver{
 		System.out.print('>');
 		String files = in.nextLine();
 		String[] filesArr = files.split(",");
+
+		//create boolean array to pass to tree assigning this datum to a particular file
 		boolean[] inFile = new boolean[4];
 		for(int i = 0; i < filesArr.length; i++)
 		{
@@ -81,6 +94,8 @@ public class Driver{
 		System.out.print('>');
 		String files = in.nextLine();
 		String[] filesArr = files.split(",");
+
+		//create a boolean array to pass to tree of which file to delete from
 		boolean[] inFile = new boolean[4];
 		for(int i = 0; i < filesArr.length; i++)
 		{
@@ -129,7 +144,9 @@ public class Driver{
 		}
 		System.out.println();
 	}
-	
+
+	//select will create a new tree by passing current tree.
+	//BST and subclasses are written to accept BST into constructor
 	public void select(Scanner in)
 	{
 		System.out.println("Type of tree? ");
@@ -181,6 +198,7 @@ public class Driver{
 			"\nquit (ends the program)\n");
 	}
 
+	//load data from file
 	public void load(String FileName)
 	{
 		try
@@ -213,7 +231,6 @@ public class Driver{
 			{
 				line = sc0.nextLine();
 				try {
-					System.out.println(line);
 					this.tree.Insert(line, inFile);
 				} catch (IllegalArgumentException ex) {
 					System.out.println(ex);

@@ -1,3 +1,11 @@
+/*
+COMP282 Section 16304 Project 2
+Group members:
+Nicholas Warfield
+Javier Aguayo
+John Wiesenfeld
+*/
+
 public class Splay extends BST implements Tree
 {
 

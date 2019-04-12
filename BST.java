@@ -1,3 +1,11 @@
+/*
+COMP282 Section 16304 Project 2
+Group members:
+Nicholas Warfield
+Javier Aguayo
+John Wiesenfeld
+*/
+
 public class BST implements Tree
 {
 	protected Node root;
@@ -37,12 +45,6 @@ public class BST implements Tree
 		}
 	}
 
-	/*public boolean Delete(String Key, int FileNumber)
-	{
-		boolean[] arr;
-		arr[FileNumber] = true;
-		return Delete(Key, arr);
-	}*/
 	public boolean Delete(String Key, boolean[] InFile)
 	{
 		Node toDelete = getNode(Key);
@@ -135,13 +137,6 @@ public class BST implements Tree
 
 		while (temp != null)
 		{
-			boolean[] tempFiles = temp.GetFiles();
-			for(int i = 0; i < 4; i++)
-			{
-				System.out.print(tempFiles[i] + " ");
-			}
-			System.out.println();
-
 			tempParent = temp;
 			int cmp = key.compareTo(temp);
 			if (cmp == 0) { return temp; }
@@ -160,6 +155,7 @@ public class BST implements Tree
 			return node;
 	}
 
+	//Prints the entire tree structure on its side, with the root at the left and the leaves on the right
 	public final void print()
 	{
 		print(root, 0, 5);
@@ -185,7 +181,7 @@ public class BST implements Tree
 		return root == null;
 	}
 
-	// protected rotation function(s)
+	// protected rotation functions
 	protected final void leftRotate(Node node)
 	{
 		Node x = node.GetRight();
